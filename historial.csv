@@ -1,40 +1,32 @@
-﻿REGISTRO DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO,,,,,,,,,,,,,
-🔵 Captura manual del técnico,,,,⚫ Fórmula automática — no editar,,,,,,,,,
-ID_Equipo,Nombre Equipo,Área,Sub-área,Tipo PM,Fecha realización,Descripción del trabajo,Técnico,Duración (hrs),Costo ($),Próxima fecha PM,Estado post-PM,Refacciones usadas,Observaciones
-WASH-T01,,,,PM Preventivo,12/04/2025,"Limpieza de filtros, revisión de nivel, prueba de temperatura",Raúl G.,2.0,,12/07/2025,Conforme,Filtros de malla,Sin novedad
-WASH-T02,Tina 2 — Enjuague RO,Washer,Tina 2,PM Preventivo,10/03/2025,"Inspección de boquillas, limpieza de tina",Carlos M.,1.5,,10/06/2025,Conforme,—,—
-WASH-T02,Tina 2 — Enjuague RO,Washer,Tina 2,Correctivo,02/02/2025,Corrección de fuga en válvula de entrada,Pedro R.,3.0,$850.00,N/A,Conforme,"Empaque BUNA-N 2""",Fuga detectada en rutina
-WASH-T03,Tina 3 — Fosfatizado,Washer,Tina 3,PM Preventivo,05/05/2025,"Análisis de baño fosfato, ajuste de concentración",Raúl G.,1.0,,05/08/2025,Conforme,—,Valores dentro de especificación
-WASH-T04,Tina 4 — Enjuague,Washer,Tina 4,PM Preventivo,20/04/2025,"Limpieza de tina, revisión de nivel magnético",Pedro R.,1.5,,20/07/2025,Conforme,—,—
-WASH-T05,Tina 5 — Sellador DI,Washer,Tina 5,PM Preventivo,15/02/2025,"Muestreo de agua DI, revisión de conductividad",Raúl G.,1.0,,15/05/2025,No conforme,—,Sensor de conductividad con deriva
-WASH-T05,Tina 5 — Sellador DI,Washer,Tina 5,Correctivo,10/02/2025,Reparación urgente de bomba de recirculación,Carlos M.,4.0,"$1,200.00",N/A,Conforme,Rodamiento 6205ZZ,Desgaste prematuro
-WASH-RO1,RO System,Washer,RO System,PM Preventivo,01/05/2025,"Cambio de membranas RO, CIP de sistema",Raúl G.,6.0,"$4,500.00",01/08/2025,Conforme,Membranas DOW FilmTec 4040,Presión recuperada a 11 bar
-HORN-01,,,,PM Preventivo,08/05/2025,"Calibración de termopares, limpieza de resistencias",Raúl G.,2.0,,08/08/2025,Conforme,—,Temperaturas ±2°C de setpoint
-HORN-02,Horno 2 — Pre-gel,Hornos,—,PM Preventivo,01/03/2025,"Revisión de quemadores, inspección de aislamiento",Raúl G.,2.5,,01/06/2025,No conforme,—,Deriva de temperatura detectada
-HORN-02,Horno 2 — Pre-gel,Hornos,—,Correctivo,20/02/2025,Ajuste y recalibración de control de temperatura,Carlos M.,3.0,,N/A,Conforme,—,—
-COOL-EXT1,,,,PM Preventivo,10/05/2025,"Lubricación de baleros, revisión de correas",Raúl G.,1.5,,10/08/2025,Conforme,Grasa SKF LGEP2,—
-COOL-EXT2,Extractor 2,Cooling Tunnel,Extractor 2,PM Preventivo,10/05/2025,"Cambio de filtros, revisión de correas",Pedro R.,1.0,,10/08/2025,Conforme,Filtros G4,—
-COOL-EXT3,Extractor 3,Cooling Tunnel,Extractor 3,PM Preventivo,15/02/2025,Revisión de correas de transmisión,Raúl G.,1.0,,15/05/2025,No conforme,—,Correas con desgaste — cambio programado
-COOL-EXT3,Extractor 3,Cooling Tunnel,Extractor 3,Correctivo,10/01/2025,Cambio de correas de transmisión,Carlos M.,2.0,$380.00,N/A,Conforme,Correas B-68 x2,—
-COOL-EXT4,Extractor 4,Cooling Tunnel,Extractor 4,PM Preventivo,01/01/2025,"Inspección de rodamientos, medición de vibración",Raúl G.,1.5,,01/04/2025,No conforme,—,Vibración 8.2 mm/s — límite 7.1
-COOL-EXT4,Extractor 4,Cooling Tunnel,Extractor 4,Correctivo,20/12/2024,Reparación por vibración excesiva,Carlos M.,5.0,"$2,100.00",N/A,Conforme,Rodamiento 6308ZZ,—
-ELEC-ROOM,,,,PM Preventivo,15/04/2025,"Torque de conexiones, limpieza de tableros",Raúl G.,3.0,,15/10/2025,Conforme,—,Termografía programada Oct 2025
-CAB-AUTO,Cabina Automática,E-Room/Cabinas,Cabina Automática,PM Preventivo,03/05/2025,Limpieza de pistolas electrostáticas,Raúl G.,2.0,,03/08/2025,Conforme,—,—
-CAB-AUTO,Cabina Automática,E-Room/Cabinas,Cabina Automática,Correctivo,12/04/2025,Ajuste de alta tensión electroestática,Externo,4.0,"$3,500.00",N/A,Conforme,—,Proveedor ABB
-CAB-MAN,Cabina Manual,E-Room/Cabinas,Cabina Manual,PM Preventivo,01/03/2025,"Limpieza de extractores internos, cambio de filtros",Raúl G.,2.5,,01/06/2025,Conforme,Filtros absolutos H14,—
-AMU-01,,,,PM Preventivo,20/04/2025,"Cambio de filtros MERV-13, lubricación de ventilador",Raúl G.,2.0,,20/07/2025,Conforme,Filtros MERV-13,—
-AMU-02,AMU-02 Cabina Manual,AMU System,AMU-02,PM Preventivo,20/04/2025,"Lubricación de ventilador, revisión de dampers",Pedro R.,1.5,,20/07/2025,Conforme,Grasa SKF,—
-AMU-03,AMU-03 General,AMU System,AMU-03,PM Preventivo,15/01/2025,"Revisión de dampers, ajuste de compuertas",Raúl G.,2.0,,15/04/2025,No conforme,—,Falla en actuador de damper
-AMU-03,AMU-03 General,AMU System,AMU-03,Correctivo,05/01/2025,Falla en control de temperatura,Carlos M.,4.5,"$1,800.00",N/A,Conforme,Tarjeta de control,—
-WT-SED,,,,PM Semestral,01/05/2025,"Limpieza de fondo, revisión de válvulas de purga",Raúl G.,4.0,,01/11/2025,Conforme,—,—
-WT-PH,Sistema pH Control,Water Treatment,pH Control,PM Preventivo,15/03/2025,"Calibración de sondas pH, verificación de dosificación",Raúl G.,1.5,,15/06/2025,Conforme,Soluciones buffer pH 4/7,—
-WT-PH,Sistema pH Control,Water Treatment,pH Control,Correctivo,01/03/2025,Reemplazo de sonda pH #2 dañada,Carlos M.,1.0,$650.00,N/A,Conforme,Sonda Hamilton pH,—
-WT-DOS,Dosificador Químicos,Water Treatment,Dosificador,PM Preventivo,10/05/2025,"Cambio de mangueras peristálticas, calibración de caudal",Pedro R.,2.0,,10/08/2025,Conforme,"Mangueras Norprene 3/8""",—
-WT-BOM,Bomba Recirculación,Water Treatment,Bomba,PM Preventivo,01/02/2025,"Cambio de sello mecánico, revisión de impulsor",Carlos M.,3.5,"$1,400.00",N/A,Conforme,Sello mecánico 25mm,Fuga detectada en rutina anterior
-CONV-T1,,,,PM Preventivo,05/05/2025,"Lubricación de cadena, tensión, revisión de ganchos",Raúl G.,2.0,,05/08/2025,Conforme,Aceite cadena ISO 220,—
-CONV-T2,Conveyor Tramo 2,Conveyor,Tramo 2,PM Preventivo,05/05/2025,Lubricación de cadena y tensión,Raúl G.,1.5,,05/08/2025,Conforme,Aceite cadena ISO 220,—
-CONV-T3,Conveyor Tramo 3,Conveyor,Tramo 3,PM Preventivo,05/05/2025,Lubricación y cambio de ganchos dañados,Carlos M.,2.0,,05/08/2025,Conforme,Ganchos std x3,—
-CONV-T4,Conveyor Tramo 4 — Centro,Conveyor,Tramo 4,PM Preventivo,05/05/2025,Lubricación de cadena rutinaria,Pedro R.,1.5,,05/08/2025,Conforme,Aceite cadena ISO 220,—
-CONV-T5,Conveyor Tramo 5,Conveyor,Tramo 5,PM Preventivo,05/05/2025,Lubricación de cadena rutinaria,Raúl G.,1.5,,05/08/2025,Conforme,Aceite cadena ISO 220,—
-CONV-T6,Conveyor Tramo 6,Conveyor,Tramo 6,PM Preventivo,05/05/2025,Lubricación de cadena rutinaria,Raúl G.,1.5,,05/08/2025,Conforme,Aceite cadena ISO 220,—
-CONV-T7,Conveyor Tramo 7 — Salida,Conveyor,Tramo 7,PM Preventivo,05/05/2025,"Lubricación zona descarga, revisión de freno",Carlos M.,2.0,,05/08/2025,Conforme,Aceite cadena ISO 220,—
+﻿REGISTRO DE MANTENIMIENTO — SPRAYTECH 2026,,,,,,,,,,,,,
+🔵 Columnas azules = captura manual   ⚫ Columnas grises = automáticas,,,,,,,,,,,,,
+ID_Equipo,Nombre Equipo,Área,Sub-área,Tipo PM,Fecha,Descripción,Técnico,Duración (hrs),Costo ($),Próximo PM,Estado,Refacciones,Observaciones
+WASH-T01,Tina 1,Washer System,1.1 Tina 1,PM Preventivo,12/04/2025,"Limpieza de filtros, revisión de nivel",Raúl G.,2.0,,12/07/2025,Conforme,Filtros de malla,Sin novedad
+WASH-EXT1,Extractor 1,Washer System,1.1.1 Extractor 1,PM Preventivo,12/04/2025,"Lubricación de baleros, revisión de correas",Raúl G.,1.0,,12/07/2025,Conforme,Grasa SKF,
+WASH-T02,Tina 2,Washer System,1.2 Tina 2,PM Preventivo,10/03/2025,"Inspección de boquillas, limpieza de tina",Carlos M.,1.5,,10/06/2025,Conforme,—,
+WASH-T03,Tina 3,Washer System,1.3 Tina 3,PM Preventivo,05/05/2025,Análisis de baño fosfato,Raúl G.,1.0,,05/08/2025,Conforme,—,
+WASH-EXT2,Extractor 2,Washer System,1.3.1 Extractor 2,PM Preventivo,05/05/2025,Lubricación y revisión de correas,Raúl G.,1.0,,05/08/2025,Conforme,Grasa SKF,
+WASH-T04,Tina 4,Washer System,1.4 Tina 4,PM Preventivo,20/04/2025,"Limpieza de tina, revisión de nivel",Pedro R.,1.5,,20/07/2025,Conforme,—,
+WASH-T05,Tina 5,Washer System,1.5 Tina 5,PM Preventivo,15/02/2025,Muestreo de agua DI,Raúl G.,1.0,,15/05/2025,No conforme,—,Sensor con deriva
+WASH-RO1,RO System,Washer System,1.6 RO System,PM Preventivo,01/05/2025,Cambio de membranas RO,Raúl G.,6.0,"$4,500.00",01/08/2025,Conforme,Membranas DOW,
+WASH-EXT3,Extractor Lavadora 3,Washer System,1.7 Extractor Lavadora 3,PM Preventivo,15/03/2025,Lubricación y balanceo de rodete,Carlos M.,1.5,,15/06/2025,Conforme,Grasa SKF,
+WASH-EXT4,Extractor Lavadora 4,Washer System,1.8 Extractor Lavadora 4,PM Preventivo,15/03/2025,Lubricación y revisión de correas,Carlos M.,1.5,,15/06/2025,Conforme,—,
+DRYO-H01,Horno 1,Dry Off,2.1 Horno 1,PM Preventivo,08/05/2025,Calibración de termopares,Raúl G.,2.0,,08/08/2025,Conforme,—,
+DRYO-EXT5,Extractor 5,Dry Off,2.1.1 Extractor 5,PM Preventivo,08/05/2025,Lubricación de baleros,Raúl G.,1.0,,08/08/2025,Conforme,Grasa SKF,
+DRYO-H02,Horno 2,Dry Off,2.2 Horno 2,PM Preventivo,01/03/2025,Revisión de quemadores,Raúl G.,2.5,,01/06/2025,No conforme,—,Deriva de temperatura
+DRYO-EXT6,Extractor 6,Dry Off,2.2.1 Extractor 6,PM Preventivo,01/03/2025,Revisión de correas y baleros,Carlos M.,1.0,,01/06/2025,Conforme,—,
+CAB-AUTO,Cabina Automática,Cabina Automatica,3.0 Cabina Automática,PM Preventivo,03/05/2025,Limpieza de pistolas electrostáticas,Raúl G.,2.0,,03/08/2025,Conforme,—,
+CAB-PST,Pistolas Automáticas,Cabina Automatica,3.1 Pistolas Automáticas,PM Preventivo,01/05/2025,Limpieza y ajuste de pistolas,Raúl G.,1.5,,01/06/2025,Conforme,Agujas de pistola,
+CAB-ALI,Alimentador de Pintura,Cabina Automatica,3.2 Alimentador de Pintura,PM Preventivo,15/04/2025,Revisión de bomba y mangueras,Carlos M.,2.0,,15/06/2025,Conforme,Mangueras 3/8,
+CAB-MAN,Cabina Manual,Cabina Manual,4.0 Cabina Manual,PM Preventivo,01/03/2025,Limpieza de extractores internos,Raúl G.,2.5,,01/06/2025,Conforme,Filtros absolutos H14,
+CAB-FILT,Filtros de Recolección,Cabina Manual,4.1 Filtros de Recolección,PM Preventivo,01/05/2025,Cambio de filtros de recolección,Pedro R.,1.0,,01/06/2025,Conforme,Filtros G4,
+CAB-PMAN,Pistolas Manuales,Cabina Manual,4.2 Pistolas Manuales,PM Preventivo,01/05/2025,Limpieza y revisión de pistolas manuales,Pedro R.,1.5,,01/06/2025,Conforme,Agujas de pistola,
+CURE-H03,Horno 3,Cure Oven,5.1 Horno 3,PM Preventivo,10/04/2025,"Calibración de termopares, limpieza",Raúl G.,2.0,,10/07/2025,Conforme,—,
+CURE-H04,Horno 4,Cure Oven,5.2 Horno 4,PM Preventivo,10/04/2025,"Calibración de termopares, limpieza",Raúl G.,2.0,,10/07/2025,Conforme,—,
+CURE-H05,Horno 5,Cure Oven,5.3 Horno 5,PM Preventivo,10/04/2025,Revisión de resistencias,Carlos M.,2.0,,10/07/2025,Conforme,—,
+CURE-H06,Horno 6,Cure Oven,5.4 Horno 6,PM Preventivo,10/04/2025,Revisión de resistencias,Carlos M.,2.0,,10/07/2025,Conforme,—,
+CURE-EXT7,Extractor 7,Cure Oven,5.5 Extractor 7,PM Preventivo,20/03/2025,Lubricación y revisión de correas,Raúl G.,1.5,,20/06/2025,Conforme,Correas B-68,
+CURE-EXT8,Extractor 8,Cure Oven,5.6 Extractor 8,PM Preventivo,20/03/2025,Lubricación y revisión de correas,Raúl G.,1.5,,20/06/2025,Conforme,Correas B-68,
+COOL-EXT9,Extractor 9,Cooling Tunnel,6.1 Extractor 9,PM Preventivo,10/05/2025,"Lubricación de baleros, filtros",Pedro R.,1.0,,10/08/2025,Conforme,Filtros G4,
+COOL-EXT10,Extractor 10,Cooling Tunnel,6.2 Extractor 10,PM Preventivo,10/05/2025,"Lubricación de baleros, filtros",Pedro R.,1.0,,10/08/2025,Conforme,Filtros G4,
+COOL-EXT11,Extractor 11,Cooling Tunnel,6.3 Extractor 11,PM Preventivo,10/05/2025,Lubricación de baleros,Raúl G.,1.0,,10/08/2025,Conforme,Grasa SKF,
