@@ -1,0 +1,37 @@
+﻿SEMÁFORO DE MANTENIMIENTO — SPRAYTECH 2026,,,,,,,,
+ID Equipo,Nombre,Área,Sub-área,Último PM,Próximo PM,Días rest.,Responsable,Prioridad
+WASH-T05,Tina 5,Washer System,1.5,15/02/2025,16/05/2025,-363 dias,Raúl G.,🔴 Critica
+DRYO-H02,Horno 2,Dry Off,2.2,01/03/2025,30/05/2025,-349 dias,Raúl G.,🔴 Critica
+CAB-MAN,Cabina Manual,Cabina Manual,4.0,01/03/2025,30/05/2025,-349 dias,Raúl G.,🔴 Critica
+CAB-PST,Pistolas Automaticas,Cabina Automatica,3.1,01/05/2025,31/05/2025,-348 dias,Raúl G.,🔴 Critica
+CAB-FILT,Filtros de Recoleccion,Cabina Manual,4.1,01/05/2025,31/05/2025,-348 dias,Pedro R.,🔴 Critica
+CAB-PMAN1,Pistolas Manuales 1,Cabina Manual,4.2,01/05/2025,31/05/2025,-348 dias,Pedro R.,🔴 Critica
+CAB-PMAN2,Pistolas Manuales 2,Cabina Manual,4.3,01/05/2025,31/05/2025,-348 dias,Pedro R.,🔴 Critica
+WASH-T02,Tina 2,Washer System,1.2,10/03/2025,08/06/2025,-340 dias,Carlos M.,🔴 Critica
+WASH-EXT-L1,Extractor Lavadora 1,Washer System,0.1,15/03/2025,13/06/2025,-335 dias,Carlos M.,🔴 Critica
+WASH-EXT-L2,Extractor Lavadora 2,Washer System,0.2,15/03/2025,13/06/2025,-335 dias,Carlos M.,🔴 Critica
+CAB-ALI,Alimentador de Pintura,Cabina Automatica,3.2,15/04/2025,14/06/2025,-334 dias,Carlos M.,🔴 Critica
+CURE-EXT3,Extractor 3,Cure Oven,5.5,20/03/2025,18/06/2025,-330 dias,Raúl G.,🔴 Critica
+CURE-EXT4,Extractor 4,Cure Oven,5.6,20/03/2025,18/06/2025,-330 dias,Raúl G.,🔴 Critica
+CURE-CHI3,Chimenea 3,Cure Oven,5.7,20/03/2025,18/06/2025,-330 dias,Carlos M.,🔴 Critica
+CURE-CHI4,Chimenea 4,Cure Oven,5.8,20/03/2025,18/06/2025,-330 dias,Carlos M.,🔴 Critica
+CAB-COL,Colector de Polvos,Cabina Automatica,3.3,01/04/2025,30/06/2025,-318 dias,Raúl G.,🔴 Critica
+HVAC-01,HVAC 1,HVAC,9.0,01/04/2025,30/06/2025,-318 dias,Carlos M.,🔴 Critica
+HVAC-02,HVAC 2,HVAC,10.0,01/04/2025,30/06/2025,-318 dias,Carlos M.,🔴 Critica
+CURE-H03,Horno 3,Cure Oven,5.1,10/04/2025,09/07/2025,-309 dias,Raúl G.,🔴 Critica
+CURE-H04,Horno 4,Cure Oven,5.2,10/04/2025,09/07/2025,-309 dias,Raúl G.,🔴 Critica
+CURE-H05,Horno 5,Cure Oven,5.3,10/04/2025,09/07/2025,-309 dias,Carlos M.,🔴 Critica
+CURE-H06,Horno 6,Cure Oven,5.4,10/04/2025,09/07/2025,-309 dias,Carlos M.,🔴 Critica
+WASH-T01,Tina 1,Washer System,1.1,12/04/2025,11/07/2025,-307 dias,Raúl G.,🔴 Critica
+WASH-CHI1,Chimenea 1,Washer System,1.1.1,12/04/2025,11/07/2025,-307 dias,Raúl G.,🔴 Critica
+WASH-T04,Tina 4,Washer System,1.4,20/04/2025,19/07/2025,-299 dias,Pedro R.,🔴 Critica
+AMU-SYS,AMU System,AMU System,8.0,20/04/2025,19/07/2025,-299 dias,Raúl G.,🔴 Critica
+WASH-RO1,RO System,Washer System,1.6,01/05/2025,30/07/2025,-288 dias,Raúl G.,🔴 Critica
+CAB-AUTO,Cabina Automatica,Cabina Automatica,3.0,03/05/2025,01/08/2025,-286 dias,Raúl G.,🔴 Critica
+WASH-T03,Tina 3,Washer System,1.3,05/05/2025,03/08/2025,-284 dias,Raúl G.,🔴 Critica
+WASH-CHI2,Chimenea 2,Washer System,1.3.1,05/05/2025,03/08/2025,-284 dias,Raúl G.,🔴 Critica
+DRYO-H01,Horno 1,Dry Off,2.1,08/05/2025,06/08/2025,-281 dias,Raúl G.,🔴 Critica
+COOL-EXT9,Extractor 9,Cooling Tunnel,6.1,10/05/2025,08/08/2025,-279 dias,Pedro R.,🔴 Critica
+COOL-EXT10,Extractor 10,Cooling Tunnel,6.2,10/05/2025,08/08/2025,-279 dias,Pedro R.,🔴 Critica
+COOL-EXT11,Extractor 11,Cooling Tunnel,6.3,10/05/2025,08/08/2025,-279 dias,Raúl G.,🔴 Critica
+WT-SYS,Waste Treatment System,Water Treatment,7.0,01/05/2025,28/10/2025,-198 dias,Raúl G.,🔴 Critica
