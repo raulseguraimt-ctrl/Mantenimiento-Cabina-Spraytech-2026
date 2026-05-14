@@ -1,0 +1,22 @@
+﻿REGISTRO DE MANTENIMIENTO PREVENTIVO Y CORRECTIVO — SPRAYTECH 2026,,,,,,,,,,,,,
+🔵 Captura manual   ⚫ Automático (no editar),,,,,,,,,,,,,
+ID_Equipo,Nombre Equipo,Área,Sub-área,Tipo PM,Fecha,Descripción del trabajo,Técnico,Duración (hrs),Costo ($),Próximo PM,Estado,Refacciones usadas,Observaciones
+WASH-T01,Tina 1,Washer System,1.1,PM Preventivo,12/04/2025,"Limpieza de filtros, revision de nivel",Raúl G.,2.0,,12/07/2025,Conforme,Filtros de malla,Sin novedad
+WASH-T02,Tina 2,Washer System,1.2,PM Preventivo,10/03/2025,"Inspeccion de boquillas, limpieza de tina",Carlos M.,1.5,,10/06/2025,Conforme,—,
+WASH-T03,Tina 3,Washer System,1.3,PM Preventivo,05/05/2025,Analisis de baño fosfato,Raúl G.,1.0,,05/08/2025,Conforme,—,
+WASH-T04,Tina 4,Washer System,1.4,PM Preventivo,20/04/2025,"Limpieza de tina, revision de nivel",Pedro R.,1.5,,20/07/2025,Conforme,—,
+WASH-T05,Tina 5,Washer System,1.5,PM Preventivo,15/02/2025,Muestreo de agua DI,Raúl G.,1.0,,15/05/2025,No conforme,—,Sensor con deriva
+WASH-RO1,RO System,Washer System,1.6,PM Preventivo,01/05/2025,Cambio de membranas RO,Raúl G.,6.0,"$4,500.00",01/08/2025,Conforme,Membranas DOW,
+DRYO-H01,Horno 1,Dry Off,2.1,PM Preventivo,08/05/2025,Calibracion de termopares,Raúl G.,2.0,,08/08/2025,Conforme,—,
+DRYO-H02,Horno 2,Dry Off,2.2,PM Preventivo,01/03/2025,Revision de quemadores,Raúl G.,2.5,,01/06/2025,No conforme,—,Deriva de temperatura
+CAB-AUTO,Cabina Automatica,Cabina Automatica,3.0,PM Preventivo,03/05/2025,Limpieza de pistolas electrostaticas,Raúl G.,2.0,,03/08/2025,Conforme,—,
+CAB-MAN,Cabina Manual,Cabina Manual,4.0,PM Preventivo,01/03/2025,Limpieza de extractores internos,Raúl G.,2.5,,01/06/2025,Conforme,Filtros absolutos H14,
+CURE-H03,Horno 3,Cure Oven,5.1,PM Preventivo,10/04/2025,"Calibracion de termopares, limpieza",Raúl G.,2.0,,10/07/2025,Conforme,—,
+CURE-H04,Horno 4,Cure Oven,5.2,PM Preventivo,10/04/2025,"Calibracion de termopares, limpieza",Raúl G.,2.0,,10/07/2025,Conforme,—,
+CURE-H05,Horno 5,Cure Oven,5.3,PM Preventivo,10/04/2025,Revision de resistencias,Carlos M.,2.0,,10/07/2025,Conforme,—,
+CURE-H06,Horno 6,Cure Oven,5.4,PM Preventivo,10/04/2025,Revision de resistencias,Carlos M.,2.0,,10/07/2025,Conforme,—,
+COOL-EXT9,Extractor 9,Cooling Tunnel,6.1,PM Preventivo,10/05/2025,"Lubricacion de baleros, filtros",Pedro R.,1.0,,10/08/2025,Conforme,Filtros G4,
+COOL-EXT10,Extractor 10,Cooling Tunnel,6.2,PM Preventivo,10/05/2025,"Lubricacion de baleros, filtros",Pedro R.,1.0,,10/08/2025,Conforme,Filtros G4,
+COOL-EXT11,Extractor 11,Cooling Tunnel,6.3,PM Preventivo,10/05/2025,Lubricacion de baleros,Raúl G.,1.0,,10/08/2025,Conforme,Grasa SKF,
+AMU-SYS,AMU System,AMU System,8.0,PM Preventivo,20/04/2025,"Cambio filtros MERV-13, lubricacion",Raúl G.,2.0,,20/07/2025,Conforme,Filtros MERV-13,
+WT-SYS,Waste Treatment System,Water Treatment,7.0,PM Semestral,01/05/2025,"Limpieza de fondo, revision de valvulas",Raúl G.,4.0,,01/11/2025,Conforme,—,
