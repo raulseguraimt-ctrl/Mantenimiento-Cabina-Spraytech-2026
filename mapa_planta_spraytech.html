@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>SprayTech 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#E8EAF0;font-family:Arial,sans-serif;color:#222}
+.hdr{background:#fff;border-bottom:1px solid #EEE;padding:0 16px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100;height:56px;gap:12px}
+.hdr-logo{width:32px;height:32px;background:#1A1A2E;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-logo span{color:#fff;font-size:13px;font-weight:700}
+.hdr-info{flex:1;min-width:0}
+.hdr-title{font-size:14px;font-weight:700;color:#1A1A2E}
+.hdr-sub{font-size:10px;color:#888;margin-top:1px}
+.status-pill{display:flex;align-items:center;gap:5px;background:#F0F9F5;border:1px solid #C8EFDF;border-radius:20px;padding:4px 10px;flex-shrink:0}
+#status-dot{width:7px;height:7px;border-radius:50%;background:#ccc}
+#status-txt{font-size:10px;color:#555;white-space:nowrap}
+.kpi-strip{position:fixed;top:56px;left:0;right:0;z-index:99;background:#fff;border-bottom:1px solid #EEE;display:flex;overflow-x:auto;scrollbar-width:none}
+.kpi-strip::-webkit-scrollbar{display:none}
+.kpi{flex:0 0 auto;padding:7px 14px;text-align:center;border-right:1px solid #F0F0F0;min-width:68px}
+.kpi-label{font-size:9px;color:#AAA;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;margin-bottom:2px}
+.kpi-val{font-size:19px;font-weight:700;line-height:1}
+.kpi-val.ok{color:#1D9E75}.kpi-val.warn{color:#BA7517}.kpi-val.danger{color:#E24B4A}.kpi-val.blue{color:#0F3460}
+.map-wrap{position:fixed;top:98px;left:0;right:0;bottom:0;overflow:hidden;background:#E8EAF0;cursor:grab}
+.map-wrap:active{cursor:grabbing}
+#map-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#AAA;font-size:13px;z-index:10}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid #EEE;border-top-color:#0F3460;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#map-container{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform;display:none}
+#layout-img{display:block;width:773px;height:790px;user-select:none;pointer-events:none}
+.pin{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:20}
+.pin-circle{width:24px;height:24px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;box-shadow:0 2px 6px rgba(0,0,0,.45);transition:transform .15s,box-shadow .15s}
+.pin:hover .pin-circle{transform:scale(1.2);box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.pin.active .pin-circle{transform:scale(1.25);box-shadow:0 0 0 3px rgba(255,255,255,.7),0 4px 12px rgba(0,0,0,.45)}
+.pin-label{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:rgba(26,26,46,.92);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:30}
+.pin:hover .pin-label,.pin.active .pin-label{opacity:1}
+.pin-ok .pin-circle{background:#1D9E75}
+.pin-warn .pin-circle{background:#BA7517}
+.pin-danger .pin-circle{background:#E24B4A}
+.pin-none .pin-circle{background:#666}
+.pin-sm .pin-circle{width:24px;height:24px;font-size:11px;border-width:2px}
+.pin-sm .pin-label{top:28px}
+.zoom-ctrl{position:fixed;right:14px;bottom:200px;z-index:200;display:flex;flex-direction:column;gap:8px}
+.zoom-btn{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #E5E5E5;font-size:20px;color:#333;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.zoom-btn:active{transform:scale(.94)}
+.map-legend{position:fixed;left:12px;bottom:12px;z-index:199;background:rgba(255,255,255,.93);border:1px solid #E5E5E5;border-radius:10px;padding:8px 12px;display:flex;flex-direction:column;gap:4px}
+.leg{display:flex;align-items:center;gap:6px;font-size:10px;color:#555}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s}
+.sheet-overlay.visible{opacity:1;pointer-events:all}
+.bottom-sheet{position:fixed;left:0;right:0;bottom:0;z-index:400;background:#fff;border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 -6px 30px rgba(0,0,0,.14)}
+.bottom-sheet.open{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;background:#DDD;border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.sheet-scroll{overflow-y:auto;flex:1;padding:0 18px 36px;-webkit-overflow-scrolling:touch}
+.sheet-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 0 12px;position:sticky;top:0;background:#fff;z-index:1;border-bottom:1px solid #F0F0F0;margin-bottom:12px;gap:12px}
+.eq-icon-badge{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.sheet-name{font-size:16px;font-weight:700;color:#1A1A2E;line-height:1.3}
+.sheet-area-txt{font-size:11px;color:#888;margin-top:2px}
+.sheet-close{width:30px;height:30px;border-radius:50%;background:#F5F5F5;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#555}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:12px}
+.badge.ok{background:#D4EDDA;color:#0F6E56}.badge.warn{background:#FFF3CD;color:#854F0B}.badge.danger{background:#FCEBEB;color:#A32D2D}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.metric{background:#F8F9FA;border-radius:10px;padding:12px 14px;border:1px solid #F0F0F0}
+.metric-label{font-size:10px;color:#AAA;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.metric-val{font-size:15px;font-weight:700;color:#1A1A2E}
+.metric-val.ok{color:#1D9E75}.metric-val.warn{color:#BA7517}.metric-val.danger{color:#E24B4A}
+.img-gallery{margin-bottom:14px;border-radius:12px;overflow:hidden}
+.img-main{width:100%;height:180px;object-fit:cover;display:block;background:#F0F0F0}
+.img-thumbs{display:flex;gap:6px;padding:8px;background:#F8F8F8;overflow-x:auto;scrollbar-width:none}
+.img-thumbs::-webkit-scrollbar{display:none}
+.img-thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;flex-shrink:0}
+.img-thumb.active{border-color:#0F3460}
+.img-none{background:#F8F9FA;border-radius:12px;height:70px;display:flex;align-items:center;justify-content:center;color:#CCC;font-size:11px;margin-bottom:14px;border:1px dashed #E5E5E5}
+.hist-title{font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:10px}
+.hist-card{border:1px solid #F0F0F0;border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.hist-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:8px}
+.hist-date{font-size:11px;color:#AAA;font-weight:500}
+.hist-tipo{font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;white-space:nowrap}
+.tipo-pm{background:#D4EDDA;color:#0F6E56}.tipo-cor{background:#FCEBEB;color:#A32D2D}.tipo-cal{background:#E6F1FB;color:#0C447C}
+.hist-desc{font-size:12px;color:#444;line-height:1.5;margin-bottom:6px}
+.hist-bottom{display:flex;align-items:center;justify-content:space-between}
+.hist-tech{font-size:11px;color:#AAA}.hist-costo{font-size:11px;color:#BA7517;font-weight:700;background:#FFF8EC;padding:2px 8px;border-radius:8px}
+.no-hist{text-align:center;padding:20px;color:#CCC;font-size:12px}
+.hint-toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:rgba(26,26,46,.82);color:#fff;font-size:11px;padding:8px 18px;border-radius:20px;z-index:200;white-space:nowrap;pointer-events:none;transition:opacity .5s}
+.hint-toast.hidden{opacity:0}
+@media(min-width:768px){
+  .bottom-sheet{left:auto;right:20px;bottom:20px;border-radius:16px;max-height:78vh;width:400px;transform:translateX(130%)}
+  .bottom-sheet.open{transform:translateX(0)}
+  .sheet-overlay{display:none}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-logo"><span>ST</span></div>
+  <div class="hdr-info">
+    <div class="hdr-title">SprayTech 2026 — Layout Interactivo</div>
+    <div class="hdr-sub">Pellizca para zoom &middot; Toca un pin para ver ficha</div>
+  </div>
+  <div class="status-pill"><span id="status-dot"></span><span id="status-txt">Cargando...</span></div>
+</div>
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-label">Total</div><div class="kpi-val blue" id="kpi-total">--</div></div>
+  <div class="kpi"><div class="kpi-label">Al dia</div><div class="kpi-val ok" id="kpi-ok">--</div></div>
+  <div class="kpi"><div class="kpi-label">Proximo</div><div class="kpi-val warn" id="kpi-warn">--</div></div>
+  <div class="kpi"><div class="kpi-label">Vencido</div><div class="kpi-val danger" id="kpi-danger">--</div></div>
+  <div class="kpi"><div class="kpi-label">Cumplim.</div><div class="kpi-val ok" id="kpi-pct">--</div></div>
+</div>
+<div class="map-wrap" id="map-wrap">
+  <div id="map-loading"><span class="spinner"></span>Cargando layout...</div>
+  <div id="map-container">
+    <img id="layout-img"
+      src="https://raw.githubusercontent.com/raulseguraimt-ctrl/Mantenimiento-Cabina-Spraytech-2026/main/layout_planta.jpg"
+      alt="Layout planta" draggable="false"
+      onload="onImgLoad()" onerror="onImgError()"/>
+
+    <!-- WASHER SYSTEM -->
+    <div class="pin pin-none pin-sm" data-id="WASH-EXT-L1" onclick="showEquip('WASH-EXT-L1')" style="left:47px;top:517px"><div class="pin-circle">&#9654;</div><div class="pin-label">0.1 Ext Lavadora 1</div></div>
+    <div class="pin pin-none pin-sm" data-id="WASH-EXT-L2" onclick="showEquip('WASH-EXT-L2')" style="left:523px;top:180px"><div class="pin-circle">&#9654;</div><div class="pin-label">0.2 Ext Lavadora 2</div></div>
+    <div class="pin pin-none" data-id="WASH-T01" onclick="showEquip('WASH-T01')" style="left:79px;top:474px"><div class="pin-circle">&#9719;</div><div class="pin-label">1.1 Tina 1</div></div>
+    <div class="pin pin-none pin-sm" data-id="WASH-CHI1" onclick="showEquip('WASH-CHI1')" style="left:76px;top:443px"><div class="pin-circle">&#128168;</div><div class="pin-label">1.1.1 Chimenea 1</div></div>
+    <div class="pin pin-none" data-id="WASH-T02" onclick="showEquip('WASH-T02')" style="left:78px;top:284px"><div class="pin-circle">&#9719;</div><div class="pin-label">1.2 Tina 2</div></div>
+    <div class="pin pin-none" data-id="WASH-T03" onclick="showEquip('WASH-T03')" style="left:194px;top:150px"><div class="pin-circle">&#9719;</div><div class="pin-label">1.3 Tina 3</div></div>
+    <div class="pin pin-none pin-sm" data-id="WASH-CHI2" onclick="showEquip('WASH-CHI2')" style="left:229px;top:150px"><div class="pin-circle">&#128168;</div><div class="pin-label">1.3.1 Chimenea 2</div></div>
+    <div class="pin pin-none" data-id="WASH-T04" onclick="showEquip('WASH-T04')" style="left:354px;top:148px"><div class="pin-circle">&#9719;</div><div class="pin-label">1.4 Tina 4</div></div>
+    <div class="pin pin-none" data-id="WASH-T05" onclick="showEquip('WASH-T05')" style="left:483px;top:150px"><div class="pin-circle">&#9719;</div><div class="pin-label">1.5 Tina 5</div></div>
+    <div class="pin pin-none" data-id="WASH-RO1" onclick="showEquip('WASH-RO1')" style="left:448px;top:143px"><div class="pin-circle">&#128167;</div><div class="pin-label">1.6 RO System</div></div>
+    <!-- DRY OFF -->
+    <div class="pin pin-none" data-id="DRYO-H01" onclick="showEquip('DRYO-H01')" style="left:126px;top:252px"><div class="pin-circle">&#9830;</div><div class="pin-label">2.1 Horno 1</div></div>
+    <div class="pin pin-none" data-id="DRYO-H02" onclick="showEquip('DRYO-H02')" style="left:127px;top:283px"><div class="pin-circle">&#9830;</div><div class="pin-label">2.2 Horno 2</div></div>
+    <!-- CABINA AUTO -->
+    <div class="pin pin-none" data-id="CAB-AUTO" onclick="showEquip('CAB-AUTO')" style="left:405px;top:501px"><div class="pin-circle">&#11835;</div><div class="pin-label">3.0 Cabina Auto</div></div>
+    <div class="pin pin-none pin-sm" data-id="CAB-PST" onclick="showEquip('CAB-PST')" style="left:476px;top:558px"><div class="pin-circle">&#10148;</div><div class="pin-label">3.1 Pistolas Auto</div></div>
+    <div class="pin pin-none pin-sm" data-id="CAB-COL" onclick="showEquip('CAB-COL')" style="left:347px;top:451px"><div class="pin-circle">&#11053;</div><div class="pin-label">3.3 Colector Polvos</div></div>
+    <!-- CABINA MANUAL -->
+    <div class="pin pin-none" data-id="CAB-MAN" onclick="showEquip('CAB-MAN')" style="left:297px;top:595px"><div class="pin-circle">&#11835;</div><div class="pin-label">4.0 Cabina Manual</div></div>
+    <div class="pin pin-none pin-sm" data-id="CAB-FILT" onclick="showEquip('CAB-FILT')" style="left:300px;top:632px"><div class="pin-circle">&#11053;</div><div class="pin-label">4.1 Filtros</div></div>
+    <div class="pin pin-none pin-sm" data-id="CAB-PMAN1" onclick="showEquip('CAB-PMAN1')" style="left:250px;top:595px"><div class="pin-circle">&#10148;</div><div class="pin-label">4.2 Pistolas Man 1</div></div>
+    <div class="pin pin-none pin-sm" data-id="CAB-PMAN2" onclick="showEquip('CAB-PMAN2')" style="left:349px;top:596px"><div class="pin-circle">&#10148;</div><div class="pin-label">4.3 Pistolas Man 2</div></div>
+    <!-- CURE OVEN -->
+    <div class="pin pin-none" data-id="CURE-H03" onclick="showEquip('CURE-H03')" style="left:158px;top:220px"><div class="pin-circle">&#9830;</div><div class="pin-label">5.1 Horno 3</div></div>
+    <div class="pin pin-none" data-id="CURE-H04" onclick="showEquip('CURE-H04')" style="left:159px;top:254px"><div class="pin-circle">&#9830;</div><div class="pin-label">5.2 Horno 4</div></div>
+    <div class="pin pin-none" data-id="CURE-H05" onclick="showEquip('CURE-H05')" style="left:159px;top:294px"><div class="pin-circle">&#9830;</div><div class="pin-label">5.3 Horno 5</div></div>
+    <div class="pin pin-none" data-id="CURE-H06" onclick="showEquip('CURE-H06')" style="left:159px;top:329px"><div class="pin-circle">&#9830;</div><div class="pin-label">5.4 Horno 6</div></div>
+    <div class="pin pin-none pin-sm" data-id="CURE-EXT3" onclick="showEquip('CURE-EXT3')" style="left:542px;top:434px"><div class="pin-circle">&#9654;</div><div class="pin-label">5.5 Extractor 3</div></div>
+    <div class="pin pin-none pin-sm" data-id="CURE-EXT4" onclick="showEquip('CURE-EXT4')" style="left:577px;top:433px"><div class="pin-circle">&#9654;</div><div class="pin-label">5.6 Extractor 4</div></div>
+    <div class="pin pin-none pin-sm" data-id="CURE-CHI3" onclick="showEquip('CURE-CHI3')" style="left:586px;top:240px"><div class="pin-circle">&#128168;</div><div class="pin-label">5.7 Chimenea 3</div></div>
+    <div class="pin pin-none pin-sm" data-id="CURE-CHI4" onclick="showEquip('CURE-CHI4')" style="left:584px;top:293px"><div class="pin-circle">&#128168;</div><div class="pin-label">5.8 Chimenea 4</div></div>
+    <!-- COOLING TUNNEL -->
+    <div class="pin pin-none pin-sm" data-id="COOL-EXT9" onclick="showEquip('COOL-EXT9')" style="left:706px;top:401px"><div class="pin-circle">&#9654;</div><div class="pin-label">6.1 Extractor 9</div></div>
+    <div class="pin pin-none pin-sm" data-id="COOL-EXT10" onclick="showEquip('COOL-EXT10')" style="left:733px;top:179px"><div class="pin-circle">&#9654;</div><div class="pin-label">6.2 Extractor 10</div></div>
+    <div class="pin pin-none pin-sm" data-id="COOL-EXT11" onclick="showEquip('COOL-EXT11')" style="left:668px;top:180px"><div class="pin-circle">&#9654;</div><div class="pin-label">6.3 Extractor 11</div></div>
+    <!-- NUEVOS -->
+    <div class="pin pin-none" data-id="WT-SYS" onclick="showEquip('WT-SYS')" style="left:439px;top:59px"><div class="pin-circle">&#128167;</div><div class="pin-label">7.0 Waste Treatment</div></div>
+    <div class="pin pin-none" data-id="AMU-SYS" onclick="showEquip('AMU-SYS')" style="left:505px;top:61px"><div class="pin-circle">&#9926;</div><div class="pin-label">8.0 AMU System</div></div>
+    <div class="pin pin-none" data-id="HVAC-01" onclick="showEquip('HVAC-01')" style="left:405px;top:592px"><div class="pin-circle">&#10052;</div><div class="pin-label">9.0 HVAC 1</div></div>
+    <div class="pin pin-none" data-id="HVAC-02" onclick="showEquip('HVAC-02')" style="left:285px;top:520px"><div class="pin-circle">&#10052;</div><div class="pin-label">10.0 HVAC 2</div></div>
+  </div>
+</div>
+<div class="zoom-ctrl">
+  <button class="zoom-btn" onclick="zoomIn()">+</button>
+  <button class="zoom-btn" onclick="zoomOut()">&#8722;</button>
+  <button class="zoom-btn" onclick="resetZoom()" style="font-size:14px">&#8962;</button>
+</div>
+<div class="map-legend">
+  <div class="leg"><div class="leg-dot" style="background:#1D9E75"></div>Al dia</div>
+  <div class="leg"><div class="leg-dot" style="background:#BA7517"></div>PM proximo</div>
+  <div class="leg"><div class="leg-dot" style="background:#E24B4A"></div>Vencido</div>
+</div>
+<div class="hint-toast" id="hint-toast">&#128072; Pellizca zoom &middot; Toca un pin</div>
+<div class="sheet-overlay" id="overlay" onclick="closeSheet()"></div>
+<div class="bottom-sheet" id="bottom-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-scroll">
+    <div class="sheet-hdr">
+      <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
+        <div class="eq-icon-badge" id="s-icon-bg"><span id="s-icon">&#9881;</span></div>
+        <div style="min-width:0"><div class="sheet-name" id="s-name"></div><div class="sheet-area-txt" id="s-area"></div></div>
+      </div>
+      <button class="sheet-close" onclick="closeSheet()">&#10005;</button>
+    </div>
+    <div id="s-gallery"></div>
+    <span class="badge" id="s-badge"></span>
+    <div class="metrics" id="s-metrics"></div>
+    <div class="hist-title">&#128203; Historial de trabajos</div>
+    <div id="s-hist"></div>
+  </div>
+</div>
+<script>
+const EU='https://raw.githubusercontent.com/raulseguraimt-ctrl/Mantenimiento-Cabina-Spraytech-2026/refs/heads/main/equipos.csv';
+const HU='https://raw.githubusercontent.com/raulseguraimt-ctrl/Mantenimiento-Cabina-Spraytech-2026/refs/heads/main/historial.csv';
+const REPO='https://raw.githubusercontent.com/raulseguraimt-ctrl/Mantenimiento-Cabina-Spraytech-2026/main';
+const IMGS={
+  // Washer System
+  'WASH-T01':[`${REPO}/imagenes/WASH-T01.jpeg`],
+  'WASH-T02':[`${REPO}/imagenes/WASH-T02.jpeg`],
+  'WASH-T03':[`${REPO}/imagenes/WASH-T03.jpeg`],
+  'WASH-T04':[`${REPO}/imagenes/WASH-T04.jpeg`],
+  'WASH-T05':[`${REPO}/imagenes/WASH-T05.jpeg`],
+  'WASH-RO1':[`${REPO}/imagenes/WASH-R01.jpeg`],
+  'WASH-CHI1':[`${REPO}/imagenes/WASH-CHI1.jpeg`],
+  'WASH-CHI2':[`${REPO}/imagenes/WASH-CHI2.jpeg`],
+  'WASH-EXT-L1':[`${REPO}/imagenes/WASH-EXT-L1.jpeg`],
+  'WASH-EXT-L2':[`${REPO}/imagenes/WASH-EXT-L2.jpeg`],
+  // Cure Oven
+  'CURE-EXT3':[`${REPO}/imagenes/CURE-EXT3.jpeg`],
+  'CURE-EXT4':[`${REPO}/imagenes/CURE-EXT4.jpeg`],
+  'CURE-CHI3':[`${REPO}/imagenes/CURE-CHI3.jpeg`],
+  'CURE-CHI4':[`${REPO}/imagenes/CURE-CHI4.jpeg`],
+  // Cooling Tunnel
+  'COOL-EXT9':[`${REPO}/imagenes/COOL-EXT9.jpeg`],
+  'COOL-EXT10':[`${REPO}/imagenes/COOL-EXT10.jpeg`],
+  // AMU
+  'AMU-SYS':[`${REPO}/imagenes/AMU-01.jpeg`],
+  // Cabinas (galeria)
+  'CAB-AUTO':[`${REPO}/CAB-AUTO/CAB-AUTO1.jpeg`,`${REPO}/CAB-AUTO/CAB-AUTO2.jpeg`,`${REPO}/CAB-AUTO/CAB-AUTO3.jpeg`,`${REPO}/CAB-AUTO/CAB-AUTO4.jpeg`],
+  'CAB-MAN':[`${REPO}/CAB-MAN/CAB-MAN1.jpeg`,`${REPO}/CAB-MAN/CAB-MAN2.jpeg`],
+};
+const PIN_AREA_COLORS={
+  'WASH-EXT-L1':'#1D9E75','WASH-EXT-L2':'#1D9E75','WASH-T01':'#1D9E75',
+  'WASH-CHI1':'#1D9E75','WASH-T02':'#1D9E75','WASH-T03':'#1D9E75',
+  'WASH-CHI2':'#1D9E75','WASH-T04':'#1D9E75','WASH-T05':'#1D9E75',
+  'WASH-RO1':'#1D9E75','DRYO-H01':'#BA7517','DRYO-H02':'#BA7517',
+  'CAB-AUTO':'#534AB7','CAB-PST':'#534AB7','CAB-ALI':'#534AB7','CAB-COL':'#534AB7',
+  'CAB-MAN':'#C73652','CAB-FILT':'#C73652','CAB-PMAN1':'#C73652','CAB-PMAN2':'#C73652',
+  'CURE-H03':'#E65100','CURE-H04':'#E65100','CURE-H05':'#E65100','CURE-H06':'#E65100',
+  'CURE-EXT3':'#E65100','CURE-EXT4':'#E65100','CURE-CHI3':'#E65100','CURE-CHI4':'#E65100',
+  'COOL-EXT9':'#185FA5','COOL-EXT10':'#185FA5','COOL-EXT11':'#185FA5',
+  'WT-SYS':'#639922','AMU-SYS':'#D85A30','HVAC-01':'#3730A3','HVAC-02':'#3730A3',
+};
+const AREA_COLORS={'Washer System':'#E1F5EE','Dry Off':'#FAEEDA','Cabina Automatica':'#EEEDFE','Cabina Manual':'#FBEAF0','Cure Oven':'#FFF3E0','Cooling Tunnel':'#E6F1FB','Water Treatment':'#EAF3DE','AMU System':'#FAECE7','HVAC':'#F0F4FF'};
+function getIcon(id){
+  if(id.includes('RO'))return'&#128167;';
+  if(id.includes('CHI'))return'&#128168;';
+  if(id.includes('EXT')||id.includes('ext'))return'&#9654;';
+  if(id.includes('HVAC'))return'&#10052;';
+  if(id.includes('AMU'))return'&#9926;';
+  if(id.includes('WT'))return'&#128167;';
+  if(id.includes('PST')||id.includes('PMAN'))return'&#10148;';
+  if(id.includes('ALI'))return'&#9881;';
+  if(id.includes('FILT')||id.includes('COL'))return'&#11053;';
+  if(id.includes('WASH-T'))return'&#9719;';
+  if(id.includes('-H0')||id.includes('CURE-H')||id.includes('DRYO-H'))return'&#9830;';
+  if(id==='CAB-AUTO'||id==='CAB-MAN')return'&#11835;';
+  return'&#9881;';
+}
+let eD={},hD={},aId=null;
+const wrap=document.getElementById('map-wrap'),mc=document.getElementById('map-container');
+let sc=1,px=0,py=0,pan=false,sx=0,sy=0,ld=0,pinch=false;
+function applyT(){mc.style.transform=`translate(${px}px,${py}px) scale(${sc})`;}
+function clamp(){const r=wrap.getBoundingClientRect();px=Math.min(0,Math.max(-(773*sc-r.width+20),px));py=Math.min(0,Math.max(-(790*sc-r.height+20),py));}
+function zoomIn(){sc=Math.min(5,sc*1.3);clamp();applyT();}
+function zoomOut(){sc=Math.max(0.3,sc/1.3);clamp();applyT();}
+function resetZoom(){const r=wrap.getBoundingClientRect();sc=Math.min(r.width/773,r.height/790)*0.96;px=(r.width-773*sc)/2;py=0;applyT();}
+wrap.addEventListener('touchstart',e=>{if(e.target.closest('.pin'))return;if(e.touches.length===2){pinch=true;pan=false;ld=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}else{pan=true;pinch=false;sx=e.touches[0].clientX-px;sy=e.touches[0].clientY-py;}},{passive:true});
+wrap.addEventListener('touchmove',e=>{if(pinch&&e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);sc=Math.min(5,Math.max(0.3,sc*(d/ld)));ld=d;clamp();applyT();}else if(pan){px=e.touches[0].clientX-sx;py=e.touches[0].clientY-sy;clamp();applyT();}},{passive:true});
+wrap.addEventListener('touchend',e=>{if(e.touches.length<2)pinch=false;if(e.touches.length===0)pan=false;},{passive:true});
+wrap.addEventListener('mousedown',e=>{if(e.target.closest('.pin'))return;pan=true;sx=e.clientX-px;sy=e.clientY-py;wrap.style.cursor='grabbing';});
+window.addEventListener('mousemove',e=>{if(!pan)return;px=e.clientX-sx;py=e.clientY-sy;clamp();applyT();});
+window.addEventListener('mouseup',()=>{pan=false;wrap.style.cursor='';});
+wrap.addEventListener('wheel',e=>{e.preventDefault();sc=Math.min(5,Math.max(0.3,sc*(e.deltaY>0?0.85:1.18)));clamp();applyT();},{passive:false});
+function onImgLoad(){document.getElementById('map-loading').style.display='none';mc.style.display='block';resetZoom();loadData();setTimeout(()=>document.getElementById('hint-toast').classList.add('hidden'),4000);}
+function onImgError(){document.getElementById('map-loading').innerHTML='&#9888; Sube layout_planta.jpg a GitHub';}
+function parseCSV(t){const lines=t.trim().split('\n').map(l=>l.replace(/\r/,''));let hi=-1;for(let i=0;i<lines.length;i++){if(lines[i].startsWith('ID')){hi=i;break;}}if(hi<0)return[];const h=spl(lines[hi]);return lines.slice(hi+1).filter(l=>l.trim()).map(l=>{const v=spl(l),o={};h.forEach((k,i)=>o[k.trim()]=(v[i]||'').trim());return o;});}
+function spl(l){const r=[];let c='',q=false;for(const ch of l){if(ch==='"'){q=!q;}else if(ch===','&&!q){r.push(c);c='';}else c+=ch;}r.push(c);return r;}
+function pd(s){if(!s)return new Date(0);const p=s.split('/');if(p.length===3)return new Date(+p[2],+p[1]-1,+p[0]);return new Date(s);}
+function sCls(e,d){if(!e)return'none';if(e.toUpperCase().includes('VENC'))return'danger';const n=parseInt(d);if(!isNaN(n)&&n<=30)return'warn';return'ok';}
+async function loadData(){
+  try{
+    const[eR,hR]=await Promise.all([fetch(EU+'?t='+Date.now()),fetch(HU+'?t='+Date.now())]);
+    parseCSV(await eR.text()).forEach(r=>{const id=r['ID Equipo']||r['ID_Equipo']||'';if(id)eD[id]=r;});
+    parseCSV(await hR.text()).forEach(r=>{const id=r['ID_Equipo']||r['ID Equipo']||'';if(!id)return;if(!hD[id])hD[id]=[];hD[id].push(r);});
+    Object.keys(hD).forEach(id=>hD[id].sort((a,b)=>pd(b['Fecha realizaci\u00f3n'])-pd(a['Fecha realizaci\u00f3n'])));
+    document.querySelectorAll('.pin').forEach(pin=>{
+      const id=pin.dataset.id;const eq=eD[id];
+      const cls=eq?sCls(eq['Estado']||'',(eq['D\u00edas restantes']||'').replace(' dias','')):'none';
+      const areaColor=PIN_AREA_COLORS[id]||'#888';
+      pin.className=pin.className.replace(/pin-(ok|warn|danger|none|area)/g,'pin-'+cls);
+      const circle=pin.querySelector('.pin-circle');
+      if(circle){
+        if(cls==='ok'){circle.style.background=areaColor;circle.style.opacity='1';}
+        else if(cls==='warn'){circle.style.background='#BA7517';circle.style.opacity='1';}
+        else if(cls==='danger'){circle.style.background='#E24B4A';circle.style.opacity='1';}
+        else{circle.style.background=areaColor;circle.style.opacity='1';}
+      }
+    });
+    const all=Object.values(eD),total=all.length;let ok=0,w=0,dg=0;
+    all.forEach(eq=>{const c=sCls(eq['Estado']||'',(eq['D\u00edas restantes']||'').replace(' dias',''));if(c==='ok')ok++;else if(c==='warn')w++;else dg++;});
+    document.getElementById('kpi-total').textContent=total;document.getElementById('kpi-ok').textContent=ok;document.getElementById('kpi-warn').textContent=w;document.getElementById('kpi-danger').textContent=dg;
+    document.getElementById('kpi-pct').textContent=total?Math.round((ok/total)*100)+'%':'--';
+    document.getElementById('status-dot').style.background='#1D9E75';document.getElementById('status-txt').textContent='En vivo';
+  }catch(e){document.getElementById('status-dot').style.background='#E24B4A';document.getElementById('status-txt').textContent='Sin conexi\u00f3n';}
+}
+function buildGallery(id){const imgs=IMGS[id];if(!imgs||!imgs.length)return'<div class="img-none">Sin foto disponible</div>';if(imgs.length===1)return`<div class="img-gallery"><img class="img-main" src="${imgs[0]}" onerror="this.parentElement.innerHTML='<div class=\\"img-none\\">Foto no disponible</div>'" alt="Foto"/></div>`;const t=imgs.map((s,i)=>`<img class="img-thumb${i===0?' active':''}" src="${s}" onclick="switchImg(this,'${s}')" alt="${i+1}"/>`).join('');return`<div class="img-gallery"><img class="img-main" src="${imgs[0]}" alt="Foto"/><div class="img-thumbs">${t}</div></div>`;}
+function switchImg(t,s){t.closest('.img-gallery').querySelector('.img-main').src=s;t.closest('.img-thumbs').querySelectorAll('.img-thumb').forEach(x=>x.classList.remove('active'));t.classList.add('active');}
+function showEquip(id){
+  aId=id;const eq=eD[id];const hist=hD[id]||[];
+  document.querySelectorAll('.pin').forEach(p=>p.classList.remove('active'));
+  const pin=document.querySelector(`.pin[data-id="${id}"]`);if(pin)pin.classList.add('active');
+  const area=eq?eq['\u00c1rea']||eq['Area']||'':'';
+  document.getElementById('s-icon-bg').style.background=AREA_COLORS[area]||'#F0F0F0';
+  document.getElementById('s-icon').innerHTML=getIcon(id);
+  document.getElementById('s-name').textContent=eq?eq['Nombre']||id:id;
+  document.getElementById('s-area').textContent=eq?area+' \u00b7 '+( eq['Sub-\u00e1rea']||eq['Sub-area']||''):'Sin datos en CSV';
+  document.getElementById('s-gallery').innerHTML=buildGallery(id);
+  if(!eq){document.getElementById('s-badge').className='badge';document.getElementById('s-badge').innerHTML='Sin datos';document.getElementById('s-metrics').innerHTML='<div style="color:#CCC;font-size:12px;grid-column:1/-1;padding:8px">Agrega al Excel y sube el CSV.</div>';document.getElementById('s-hist').innerHTML='<div class="no-hist">Sin historial</div>';}
+  else{
+    const est=eq['Estado']||'';const dias=(eq['D\u00edas restantes']||'').replace(' dias','');const cls=sCls(est,dias);
+    const badge=document.getElementById('s-badge');badge.className='badge '+cls;
+    badge.innerHTML=est.includes('VENC')?'&#128308; VENCIDO':cls==='warn'?'&#9888;&#65039; PM pr\u00f3ximo':'&#9989; Al d\u00eda';
+    const dn=parseInt(dias);const dc=est.includes('VENC')?'danger':(!isNaN(dn)&&dn<=30)?'warn':'ok';
+    document.getElementById('s-metrics').innerHTML=`<div class="metric"><div class="metric-label">Ultimo PM</div><div class="metric-val">${eq['Último PM']||'--'}</div></div><div class="metric"><div class="metric-label">Proximo PM</div><div class="metric-val ${dc}">${eq['Pr\u00f3ximo PM']||'--'}</div></div><div class="metric"><div class="metric-label">Dias restantes</div><div class="metric-val ${dc}">${eq['D\u00edas restantes']||'--'}</div></div><div class="metric"><div class="metric-label">Responsable</div><div class="metric-val" style="font-size:13px">${eq['Responsable']||'--'}</div></div>`;
+    document.getElementById('s-hist').innerHTML=hist.length===0?'<div class="no-hist">Sin historial registrado</div>':hist.map(h=>{const tp=h['Tipo PM']||'';const tc=tp.toLowerCase().includes('correctivo')?'tipo-cor':tp.toLowerCase().includes('calibra')?'tipo-cal':'tipo-pm';const co=parseFloat((h['Costo ($)']||h['Costo']||'').replace(/[$,]/g,''));return`<div class="hist-card"><div class="hist-top"><span class="hist-date">${h['Fecha realizaci\u00f3n']||'--'}</span><span class="hist-tipo ${tc}">${tp}</span></div><div class="hist-desc">${h['Descripci\u00f3n del trabajo']||'--'}</div><div class="hist-bottom"><span class="hist-tech">&#128100; ${h['T\u00e9cnico']||'--'}</span>${co>0?`<span class="hist-costo">$${co.toLocaleString('es-MX')}</span>`:''}</div></div>`;}).join('');
+  }
+  document.getElementById('overlay').classList.add('visible');
+  document.getElementById('bottom-sheet').classList.add('open');
+}
+function closeSheet(){document.getElementById('overlay').classList.remove('visible');document.getElementById('bottom-sheet').classList.remove('open');document.querySelectorAll('.pin').forEach(p=>p.classList.remove('active'));aId=null;}
+const sh=document.getElementById('bottom-sheet');let shSY=0;
+sh.addEventListener('touchstart',e=>{shSY=e.touches[0].clientY;},{passive:true});
+sh.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-shSY>80)closeSheet();},{passive:true});
+setInterval(()=>{loadData();if(aId)setTimeout(()=>showEquip(aId),1500);},5*60*1000);
+</script>
+</body>
+</html>
