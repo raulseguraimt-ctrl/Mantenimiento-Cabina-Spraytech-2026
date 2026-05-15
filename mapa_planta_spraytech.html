@@ -320,7 +320,25 @@ wrap.addEventListener('mousedown',e=>{if(e.target.closest('.pin'))return;pan=tru
 window.addEventListener('mousemove',e=>{if(!pan)return;px=e.clientX-sx;py=e.clientY-sy;clamp();applyT();});
 window.addEventListener('mouseup',()=>{pan=false;wrap.style.cursor='';});
 wrap.addEventListener('wheel',e=>{e.preventDefault();sc=Math.min(5,Math.max(0.3,sc*(e.deltaY>0?0.85:1.18)));clamp();applyT();},{passive:false});
-function onImgLoad(){document.getElementById('map-loading').style.display='none';mc.style.display='block';resetZoom();loadData();setTimeout(()=>document.getElementById('hint-toast').classList.add('hidden'),4000);}
+function onImgLoad(){document.getElementById('map-loading').style.display='none';mc.style.display='block';resetZoom();loadData();
+
+// Auto-open equipment from URL param (QR code scan)
+const urlParams = new URLSearchParams(window.location.search);
+const equipoParam = urlParams.get('equipo');
+if (equipoParam) {
+  let attempts = 0;
+  const waitAndOpen = setInterval(() => {
+    attempts++;
+    if (Object.keys(eD).length > 0) {
+      clearInterval(waitAndOpen);
+      showEquip(equipoParam);
+    } else if (attempts > 40) {
+      // Data not loaded yet - show basic info anyway
+      clearInterval(waitAndOpen);
+      showEquip(equipoParam);
+    }
+  }, 250);
+}setTimeout(()=>document.getElementById('hint-toast').classList.add('hidden'),4000);}
 function onImgError(){document.getElementById('map-loading').innerHTML='&#9888; Sube layout_planta.jpg a GitHub';}
 function parseCSV(t){const lines=t.trim().split('\n').map(l=>l.replace(/\r/,''));let hi=-1;for(let i=0;i<lines.length;i++){if(lines[i].startsWith('ID')){hi=i;break;}}if(hi<0)return[];const h=spl(lines[hi]);return lines.slice(hi+1).filter(l=>l.trim()).map(l=>{const v=spl(l),o={};h.forEach((k,i)=>o[k.trim()]=(v[i]||'').trim());return o;});}
 function spl(l){const r=[];let c='',q=false;for(const ch of l){if(ch==='"'){q=!q;}else if(ch===','&&!q){r.push(c);c='';}else c+=ch;}r.push(c);return r;}
